@@ -4,5 +4,9 @@ Le but de ce projet est de simuler une fin de partie de poker (NLTHP) pour défi
 
 ## Bugs connus
 
-- Le calcul des suites n'est pas disponible
 - Le gagnant de la manche n'est pas encore visible
+
+## A venir
+
+- Ajouter ou supprimer des joueurs
+- Créer des tables et les sauvegarder
