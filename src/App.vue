@@ -18,7 +18,6 @@
     </main>
     <footer>
         <a href="https://antoinelrk.com">AntoineLRK</a> • <a href="https://github.com/antoinelrk/PokerHandsComparator">Dépôt github</a> • alpha-1.0
-
     </footer>
 </template>
 
@@ -37,8 +36,8 @@ const board_cards = [
     store.pickedCard(),
     store.pickedCard(),
     store.pickedCard(),
-    store.pickedCard(),
-    store.pickedCard()
+    // store.pickedCard(),
+    // store.pickedCard()
 ]
 
 // Tapis: # #0AA44E

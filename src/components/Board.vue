@@ -1,11 +1,13 @@
 <template>
     <div class="board">
         <Card v-for="card in boardCards" :card="card" />
+        <EmptySlot v-for="index in 5 - boardCards.length" />
     </div>
 </template>
 
 <script setup>
 import Card from './Card.vue';
+import EmptySlot from './EmptySlot.vue';
 defineProps(['boardCards'])
 const flop = 3
 const turn = 4
