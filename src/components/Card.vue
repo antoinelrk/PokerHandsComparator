@@ -20,6 +20,7 @@ defineProps(['card', 'state'])
     height: 180px;
     border-radius: 6px;
     background-color: white;
+    border: solid 3px transparent;
     overflow: hidden;
     filter: drop-shadow(0 0 4px rgba(0, 0, 0, .2));
     // transform: rotateY(45deg);

@@ -5,13 +5,22 @@
     </div>
 </template>
 
-<script setup>
+<script>
 import Card from './Card.vue';
 import EmptySlot from './EmptySlot.vue';
-defineProps(['boardCards'])
-const flop = 3
-const turn = 4
-const river = 5
+import { defineProps } from 'vue';
+
+export default {
+    props: ['boardCards'],
+    components: {
+        Card, EmptySlot
+    },
+    setup () {
+        const flop = 3
+        const turn = 4
+        const river = 5
+    }
+}
 </script>
 
 <style lang="scss" scoped>
