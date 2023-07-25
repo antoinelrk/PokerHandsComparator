@@ -2,7 +2,7 @@
     <div class="player-component">
         <h3 class="winner">Player #{{ player.id }}: {{ player.state.win_type }}</h3>
         <div class="hand">
-            <Card v-for="card in player.cards" :card="card" :player="player" />
+            <Card v-for="card in player.cards" :card="card" :player="player" :classList="reveal === false ? 'reveal' : ''" />
         </div>
     </div>
 </template>
@@ -10,7 +10,7 @@
 <script setup>
 import Card from './Card.vue';
 
-defineProps(['player'])
+defineProps(['player', 'reveal'])
 </script>
 
 <style lang="scss">
@@ -34,6 +34,14 @@ defineProps(['player'])
         display: flex;
         column-gap: 8px;
         width: auto;
+        perspective: var(--perspective);
+
+        &:hover {
+            .card {
+                transition: transform 1s ease;
+                transform: rotateY(0);
+            }
+        }
     }
 }
 </style>

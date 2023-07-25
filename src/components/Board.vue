@@ -1,15 +1,30 @@
 <template>
     <div class="board">
-        <Card v-for="card in boardCards" :card="card" />
+        <Card v-for="card in boardCards" :card="card" :classList="classeu" />
+        <EmptySlot v-for="index in 5 - boardCards.length" />
     </div>
 </template>
 
-<script setup>
+<script>
 import Card from './Card.vue';
-defineProps(['boardCards'])
-const flop = 3
-const turn = 4
-const river = 5
+import EmptySlot from './EmptySlot.vue';
+import { defineProps } from 'vue';
+
+export default {
+    props: ['boardCards'],
+    components: {
+        Card, EmptySlot
+    },
+    setup () {
+        const classeu = "reveal"
+        const flop = 3
+        const turn = 4
+        const river = 5
+        return {
+            classeu
+        }
+    }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -21,5 +36,6 @@ const river = 5
     column-gap: 8px;
     width: auto;
     transform: translateX(-50%) translateY(-50%);
+    perspective: var(--perspective);
 }
 </style>
