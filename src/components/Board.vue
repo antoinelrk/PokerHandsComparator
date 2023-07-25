@@ -1,6 +1,6 @@
 <template>
     <div class="board">
-        <Card v-for="card in boardCards" :card="card" />
+        <Card v-for="card in boardCards" :card="card" :classList="classeu" />
         <EmptySlot v-for="index in 5 - boardCards.length" />
     </div>
 </template>
@@ -16,9 +16,13 @@ export default {
         Card, EmptySlot
     },
     setup () {
+        const classeu = "reveal"
         const flop = 3
         const turn = 4
         const river = 5
+        return {
+            classeu
+        }
     }
 }
 </script>
@@ -32,5 +36,6 @@ export default {
     column-gap: 8px;
     width: auto;
     transform: translateX(-50%) translateY(-50%);
+    perspective: var(--perspective);
 }
 </style>

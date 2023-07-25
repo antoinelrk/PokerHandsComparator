@@ -4,7 +4,7 @@
         <h1 class="app-title">Poker Hands Comparator</h1>
         <div class="controls">
             <button class="sendFlop" v-show="state.board_cards.length === 0" @click="sendFlop()">Envoyer le flop</button>
-            <button class="pickCard" v-show="state.board_cards.length < 5" @click="addCardToBoard()">Envoyer une carte</button>
+            <button class="pickCard" v-show="state.board_cards.length < 5 && state.board_cards.length >= 3" @click="addCardToBoard()">Envoyer une carte</button>
         </div>
         <div class="table-wrapper">
             <ul class="left">
@@ -17,7 +17,7 @@
         <Board :boardCards="state.board_cards"/>
     </main>
     <footer>
-        <a href="https://antoinelrk.com">AntoineLRK</a> • <a href="https://github.com/antoinelrk/PokerHandsComparator">Dépôt github</a> • alpha-1.0
+        <a href="https://antoinelrk.com">AntoineLRK</a> • <a href="https://github.com/antoinelrk/PokerHandsComparator">Dépôt github</a> • alpha-1.1
     </footer>
 </template>
 
