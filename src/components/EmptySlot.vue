@@ -1,7 +1,5 @@
 <template>
-    <div class="empty-card">
-        
-    </div>
+    <div class="empty-card"></div>
 </template>
 
 <style lang="scss" scoped>
