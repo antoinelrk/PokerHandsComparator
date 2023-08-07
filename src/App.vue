@@ -1,103 +1,93 @@
 <template>
-    <!-- <Loader /> -->
     <main>
         <h1 class="app-title">Poker Hands Comparator</h1>
         <div class="controls">
-            <button class="sendFlop" v-show="state.board_cards.length === 0" @click="sendFlop()">Envoyer le flop</button>
-            <button class="pickCard" v-show="state.board_cards.length < 5 && state.board_cards.length >= 3" @click="addCardToBoard()">Envoyer une carte</button>
+            <button class="button-control" v-show="!distributed.value" @click="distribute">Distribuer</button>
+            <button class="button-control" v-show="distributed.value && !flopped.value" @click="sendFlop">Envoyer le flop</button>
+            <button class="button-control" v-show="distributed.value && flopped.value && !gameEnd.value" @click="addCardToBoard">Envoyer une carte</button>
         </div>
         <div class="table-wrapper">
             <ul class="left">
-                <li v-for="player in playersLeft" :key="player.id"><Player :player="player" /></li>
+                <li>
+                    <Player v-for="player in playersLeft" :player="player" />
+                </li>
             </ul>
             <ul class="right">
-                <li v-for="player in playersRight" :key="player.id"><Player :player="player" /></li>
+                <li>
+                    <Player v-for="player in playersRight" :player="player" />
+                </li>
             </ul>
         </div>
-        <Board :boardCards="state.board_cards"/>
+        <Board :cards="boardCards" />
     </main>
     <footer>
-        <a href="https://antoinelrk.com">AntoineLRK</a> • <a href="https://github.com/antoinelrk/PokerHandsComparator">Dépôt github</a> • alpha-1.1
+        <a href="https://antoinelrk.com">AntoineLRK</a> • <a href="https://github.com/antoinelrk/PokerHandsComparator">Dépôt github</a> • alpha-2.0
     </footer>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted } from 'vue'
 import Player from './components/Player.vue';
-import Loader from './components/Loader.vue';
-import Board from './components/Board.vue';
-import { useDeckStore } from './stores/deck.js'
-import { usePlayersStore } from './stores/players.js'
-import { ref, reactive } from 'vue'
+import Board from './components/Board.vue'
+import playersListData from './players'
+import { useDeckStore } from './stores/deck'
+import Poker from './poker';
 
-export default {
-    components: {
-        Player, Board
-    },
-    setup () {
-        const store = useDeckStore()
-        const playerStore = usePlayersStore()
+const deckStore = useDeckStore()
 
-        const state = reactive({
-            board_cards: []
+const playersList = ref(playersListData)
+const boardCards = ref([])
+const distributed = ref({
+    type: Boolean,
+    value: false
+})
+const flopped = ref({
+    type: Boolean,
+    value: false
+})
+const gameEnd = ref({
+    type: Boolean,
+    value: false
+})
+
+const distribute = () => {
+    // On push 2 cartes à chaque joueurs à partir du deck du store
+    // Le double value c'est chelou, à vérifier
+    playersList.value.forEach(player => {
+        player.cards.push(deckStore.pickCard())
+        player.cards.push(deckStore.pickCard())
+        /**
+         * On recheck les mains
+         */
+        player.handType = Poker.check([...player.cards, ...boardCards.value])
+    })
+    distributed.value.value = true
+}
+const sendFlop = () => {
+    // On push trois cartes dans le board à partir du deck du store
+    boardCards.value.push(deckStore.pickCard())
+    boardCards.value.push(deckStore.pickCard())
+    boardCards.value.push(deckStore.pickCard())
+    playersList.value.forEach(player => {
+        player.handType = Poker.check([...player.cards, ...boardCards.value])
+    })
+    flopped.value.value = true
+}
+const addCardToBoard = () => {
+    // On push une carte dans le board à partir du deck du store
+    if (boardCards.value.length < 5) {
+        boardCards.value.push(deckStore.pickCard())
+        boardCards.value.length === 5 ? gameEnd.value.value = true : ''
+        playersList.value.forEach(player => {
+            player.handType = Poker.check([...player.cards, ...boardCards.value])
         })
-
-        const sendFlop = () => {
-            state.board_cards.push(store.pickedCard())
-            state.board_cards.push(store.pickedCard())
-            state.board_cards.push(store.pickedCard())
-
-            state.board_cards.map((card) => {
-                console.log(`Board: ${card.value} ${card.suit.name}`)
-            })
-
-        }
-
-        const addCardToBoard = () => {
-            if (state.board_cards.length < 5) {
-                const card = store.pickedCard()
-                state.board_cards.push(card)
-                console.log(`Board: ${card.value} ${card.suit.name}`)
-            }
-        }
-
-        // board_cards = [
-        //     // store.chooseFixedCard(13),
-        //     store.pickedCard(),
-        //     store.pickedCard(),
-        //     store.pickedCard(),
-        //     // store.pickedCard(),
-        //     // store.pickedCard()
-        // ]
-
-        // const addCardToBoard = () => {
-        //     board_cards.push(store.pickedCard())
-
-        //     console.log(`Board modifié: ${board_cards.length}`)
-        // }
-
-        // Tapis: # #0AA44E
-
-        playerStore.addPlayer(state.board_cards)
-        playerStore.addPlayer(state.board_cards)
-        playerStore.addPlayer(state.board_cards)
-        playerStore.addPlayer(state.board_cards)
-        playerStore.addPlayer(state.board_cards)
-        playerStore.addPlayer(state.board_cards)
-
-        const playersLeft = [...playerStore.playersList].splice(0, Math.floor(playerStore.playersList.length / 2))
-        const playersRight = [...playerStore.playersList].splice(Math.floor(playerStore.playersList.length / 2))
-        
-        return {
-            playersLeft,
-            playersRight,
-            playerStore,
-            state,
-            store,
-            addCardToBoard,
-            sendFlop
-        }
     }
 }
+
+
+const playersLeft = computed(() => [...playersList.value].splice(0, Math.floor(playersList.value.length / 2)))
+const playersRight = computed(() => [...playersList.value].splice(Math.floor(playersList.value.length / 2)))
+
 </script>
 
 <style lang="scss">
@@ -106,16 +96,7 @@ export default {
     justify-content: center;
     column-gap: 16px;
 
-    button.pickCard {
-        display: flex;
-        width: auto;
-        border: 0;
-        padding: 8px 16px;
-        border-radius: 4px;
-        background-color:  rgba(255, 255, 255, .75);
-        cursor: pointer;
-    }
-    button.sendFlop {
+    button.button-control {
         display: flex;
         width: auto;
         border: 0;

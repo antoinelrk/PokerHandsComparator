@@ -1,33 +1,19 @@
 <template>
     <div class="board">
-        <Card v-for="card in boardCards" :card="card" :classList="classeu" />
-        <EmptySlot v-for="index in 5 - boardCards.length" />
+        <Card v-for="card in props.cards" :card="card" :classList="`reveal`" />
+        <EmptySlot v-for="index in 5 - props.cards.length" />
     </div>
 </template>
 
-<script>
-import Card from './Card.vue';
+<script setup>
+import Card from './Card.vue'
 import EmptySlot from './EmptySlot.vue';
-import { defineProps } from 'vue';
-
-export default {
-    props: ['boardCards'],
-    components: {
-        Card, EmptySlot
-    },
-    setup () {
-        const classeu = "reveal"
-        const flop = 3
-        const turn = 4
-        const river = 5
-        return {
-            classeu
-        }
-    }
-}
+const props = defineProps({
+    cards: Array,
+})
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .board {
     position: absolute;
     top: 50%;
