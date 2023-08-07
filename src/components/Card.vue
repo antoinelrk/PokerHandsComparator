@@ -1,24 +1,24 @@
 <template>
-    <div class="card" @click="flipCard($event)" :class="classList">
+    <div class="card" :class="props.classList">
         <div class="front">
-            <div class="value" :class="card.suit.color">{{ card.value }}</div>
+            <div class="value" :class="props.card.gfx.hexColor">{{ props.card.value }}</div>
             <div class="icon">
-                <img :src="card.suit.icon">
+                <img :src="props.card.gfx.icon">
             </div>
-            <div class="value revert" :class="card.suit.color">{{ card.value }}</div>
+            <div class="value revert" :class="props.card.gfx.hexColor">{{ props.card.value }}</div>
         </div>
         <div class="back"></div>
     </div>
 </template>
 
-<script>
-export default {
-    props: ['card', 'state', 'classList'],
-}
-
+<script setup>
+const props = defineProps({
+    card: Object,
+    classList: String
+})
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .card {
     position: relative;
     display: flex;
