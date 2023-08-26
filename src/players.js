@@ -23,5 +23,10 @@ export default [
         name: "Monica",
         handType: null,
         cards: []
+    },
+    {
+        name: "Jared",
+        handType: null,
+        cards: []
     }
 ]
