@@ -4,22 +4,22 @@ export const useDeckStore = defineStore('deck', () => {
     const gfxTypes = [
         {
             name: `spade`,
-            icon: `./images/spade.svg`,
+            icon: `/images/spade.svg`,
             hexColor: `black`
         },
         {
             name: `club`,
-            icon: `./images/club.svg`,
+            icon: `/images/club.svg`,
             hexColor: `black`
         },
         {
             name: `diamond`,
-            icon: `./images/diamond.svg`,
+            icon: `/images/diamond.svg`,
             hexColor: `red`
         },
         {
             name: `heart`,
-            icon: `./images/heart.svg`,
+            icon: `/images/heart.svg`,
             hexColor: `red`
         }
     ]

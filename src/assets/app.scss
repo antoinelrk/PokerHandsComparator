@@ -2,11 +2,16 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 a, a:hover, a:visited, a:active {
     color: inherit;
     text-decoration: none;
+}
+
+ul li {
+    list-style-type: none;
 }
 
 :root {
@@ -30,16 +35,37 @@ body {
         min-height: 100vh;
         align-items: center;
 
+        header {
+            display: flex;
+            height: 64px;
+            background-color: rgba(white, .15);
+            width: 100%;
+            padding: 0 1em;
+            justify-content: space-between;
+            align-items: center;
+
+            h1.app-title {
+                display: flex;
+            }
+
+            nav {
+                display: flex;
+
+                ul {
+                    display: flex;
+                    column-gap: 1em;
+
+                    li {
+
+                    }
+                }
+            }
+        }
+
         main {
             display: flex;
             flex-direction: column;
             width: 100%;
-
-            h1.app-title {
-                margin: 1em auto;
-                color: white;
-                filter: drop-shadow(0 0 16px rgba(0, 0, 0, .5))
-            }
         }
 
         footer {
