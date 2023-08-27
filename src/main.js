@@ -13,9 +13,21 @@ const pinia = createPinia()
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        { path: '/', name: 'Home', component: Home },
-        { path: '/about', name: 'About', component: About },
-        { path: '/room/:uuid', name: 'Room', component: Room }
+        {
+            path: '/',
+            name: 'Home',
+            component: Home
+        },
+        {
+            path: '/about',
+            name: 'About',
+            component: About
+        },
+        {
+            path: '/room/:uuid',
+            name: 'Room',
+            component: Room
+         }
     ]
 })
 app.use(router)

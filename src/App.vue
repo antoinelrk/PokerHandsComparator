@@ -14,6 +14,6 @@
     </header>
     <router-view></router-view>
     <footer>
-        <a href="https://antoinelrk.com">AntoineLRK</a> • <a href="https://github.com/antoinelrk/PokerHandsComparator">Dépôt github</a> • alpha-2.0
+        <a href="https://antoinelrk.com">AntoineLRK</a> • <a href="https://github.com/antoinelrk/PokerHandsComparator">Dépôt github</a> • alpha-3.0
     </footer>
 </template>

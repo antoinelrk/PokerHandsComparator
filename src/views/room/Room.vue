@@ -6,7 +6,7 @@
             <ButtonControl v-show="distributed.value && flopped.value && !gameEnd.value" @click="addCardToBoard">Envoyer une carte</ButtonControl>
             <ButtonControl v-show="gameEnd.value" @click="resetRoom">Retourner à l'accueil</ButtonControl>
         </div>
-        <h3 class="room-id">Room: {{ this.$route.params.uuid }}</h3>
+        <h3 class="room-id">Room: {{ route.params.uuid }}</h3>
         <div class="table-wrapper">
             <ul class="left">
                 <li>
@@ -31,12 +31,13 @@ import Board from '../../components/Board.vue'
 import playersListData from '../../players'
 import { useDeckStore } from '../../stores/deck'
 import Poker from '../../poker';
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { useRoomsStore } from '../../stores/rooms'
 
 const roomsStore = useRoomsStore()
 const deckStore = useDeckStore()
 const router = useRouter()
+const route = useRoute()
 
 const playersList = reactive(playersListData)
 const boardCards = reactive([])
