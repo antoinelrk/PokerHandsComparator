@@ -5,16 +5,10 @@ import { reactive } from "vue";
 export const useRoomsStore = defineStore('rooms', () => {
     const rooms = reactive([])
 
-    const createRoom = (player) => {
-        rooms.push({
-            id: uuidv4(),
-            players: [player],
-            state: 'idle'
-        })
-    }
+    const addRoom = (room) => rooms.push(room)
 
     return {
         rooms,
-        createRoom
+        addRoom
     }
 })
