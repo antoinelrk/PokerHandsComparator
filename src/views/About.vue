@@ -1,5 +1,5 @@
 <template>
     <main class="about">
-        About page
+        Ce projet est une démo d'un jeu de Poker en ligne.
     </main>
 </template>

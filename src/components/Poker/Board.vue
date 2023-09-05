@@ -1,7 +1,7 @@
 <template>
     <div class="board">
-        <Card v-for="card in props.cards" :card="card" :classList="`reveal`" />
-        <EmptySlot v-for="index in 5 - props.cards.length" />
+        <Card v-for="card in props.cards" :card="card" :classList="`reveal inBoard`" />
+        <EmptySlot v-for="index in 5 - props.cards.length" :classList="`inBoard`"/>
     </div>
 </template>
 

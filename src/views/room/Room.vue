@@ -7,27 +7,19 @@
             <ButtonControl v-show="gameEnd.value" @click="resetRoom">Retourner à l'accueil</ButtonControl>
         </div>
         <h3 class="room-id">Room: {{ route.params.uuid }}</h3>
-        <div class="table-wrapper">
-            <ul class="left">
-                <li>
-                    <Player v-for="player in playersLeft" :player="player" />
-                </li>
-            </ul>
-            <ul class="right">
-                <li>
-                    <Player v-for="player in playersRight" :player="player" />
-                </li>
-            </ul>
-        </div>
-        <Board :cards="boardCards" />
+        <Table
+            :board="boardCards"
+            :playersList="playersList"
+        >
+        </Table>
     </main>
 </template>
 
 <script setup>
+import Table from '../../components/Poker/Table.vue'
+
 import ButtonControl from '../../components/ui/ButtonControl.vue'
 import { ref, computed, reactive } from 'vue'
-import Player from '../../components/Player.vue';
-import Board from '../../components/Board.vue'
 import playersListData from '../../players'
 import { useDeckStore } from '../../stores/deck'
 import Poker from '../../poker';
@@ -107,6 +99,11 @@ const playersRight = computed(() => [...playersList].splice(Math.floor(playersLi
 </script>
 
 <style lang="scss">
+main.room {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .controls {
     display: flex;
     padding: .5em;
